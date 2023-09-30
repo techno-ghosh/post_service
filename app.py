@@ -3,6 +3,12 @@ import requests
 
 app = Flask(__name__)
 
+@app.route('/')
+def hello():
+    return 'You have reached the root directory'
+
+
+
 @app.route('/post/<id>')
 def post(id):
     posts = {
@@ -13,7 +19,7 @@ def post(id):
     
     # Get user info from User Service
     if post_info:
-        response = requests.get(f'http://localhost:5000/user/{post_info["user_id"]}')
+        response = requests.get(f'https://userserviceweekthree.azurewebsites.net/user/{post_info["user_id"]}')
         if response.status_code == 200:
             post_info['user'] = response.json()
 
