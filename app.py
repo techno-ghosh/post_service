@@ -25,11 +25,13 @@ def post(id):
     # Get user info from User Service
     if post_info:
 
-        response = requests.get(f'http://localhost:5000/user/{post_info["user_id"]}')
+        response = requests.get(f'https://webappsfromlocalnirmalghosh.azurewebsites.net/user/{post_info["user_id"]}')
         
         if response.status_code == 200:
             post_info['user'] = response.json()
-
+        else:
+            post_info['user_response'] = response.status_code
+            
         return jsonify(post_info)
     else:
         return 'Post not found',404
@@ -40,7 +42,7 @@ def create():
     post = request.json['post']
     user_id = request.json['user_id']
     
-    response = requests.get(f'http://localhost:5000/user/{user_id}')
+    response = requests.get(f'https://webappsfromlocalnirmalghosh.azurewebsites.net/user/{user_id}')
     
     if response.status_code != 200:
         return 'User not found',404
